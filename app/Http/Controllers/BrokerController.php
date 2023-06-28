@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BrokersResource;
+use App\Models\Broker;
 use Illuminate\Http\Request;
 
 class BrokerController extends Controller
@@ -13,7 +15,7 @@ class BrokerController extends Controller
      */
     public function index()
     {
-        //
+        return BrokersResource::collection(Broker::all());
     }
 
 
