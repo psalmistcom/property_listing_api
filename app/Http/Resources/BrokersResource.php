@@ -15,13 +15,16 @@ class BrokersResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'address' => $this->address,
-            'city' => $this->city,
-            'zip_code' => $this->zip_code,
-            'Phone_number' => $this->Phone_number,
-            'logo_path' => $this->logo_path,
+            'id' => (string) $this->id,
+            'type' => 'Brokers',
+            'attributes' => [
+                'name' => $this->name,
+                'address' => $this->address,
+                'city' => $this->city,
+                'zip_code' => $this->zip_code,
+                'phone_number' => $this->phone_number,
+                'logo_path' => $this->logo_path
+            ]
         ];
     }
 }

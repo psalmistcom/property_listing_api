@@ -40,7 +40,7 @@ class BrokerController extends Controller
             'city' => $request->city,
             'zip_code' => $request->zip_code,
             'phone_number' => $request->phone_number,
-            'logo_path' => $request->logo_path
+            'logo_path' => $request->logo_path,
         ]);
 
         return new BrokersResource($broker);
@@ -66,12 +66,13 @@ class BrokerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Broker $broker)
+    public function update(StoreBrokerRequest $request, Broker $broker)
     {
-        // $broker->update($request->only([
-        //     'name', 'address', 'city', 'zip_code', 'phone_number', 'logo_path'
-        // ]));
-        $broker->update($request->all());
+        $request->validated();
+
+        $broker->update($request->only([
+            'name', 'address', 'city', 'zip_code', 'phone_number', 'logo_path'
+        ]));
 
         return new BrokersResource($broker);
     }
@@ -82,8 +83,13 @@ class BrokerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Broker $broker)
     {
-        //
+        $broker->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Broker has been deleted from database',
+        ]);
     }
 }
