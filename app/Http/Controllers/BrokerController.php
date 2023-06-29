@@ -52,9 +52,9 @@ class BrokerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Broker $broker)
     {
-        //
+        return new BrokersResource($broker);
     }
 
 
@@ -66,9 +66,14 @@ class BrokerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Broker $broker)
     {
-        //
+        // $broker->update($request->only([
+        //     'name', 'address', 'city', 'zip_code', 'phone_number', 'logo_path'
+        // ]));
+        $broker->update($request->all());
+
+        return new BrokersResource($broker);
     }
 
     /**
